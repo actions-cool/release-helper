@@ -9585,7 +9585,7 @@ const dingdingToken = core.getInput('dingding-token');
 const dingdingMsg= core.getInput('dingding-msg');
 
 const triger = core.getInput('triger', { required: true });
-const branches = core.getInput('branches', { required: true });
+const branch = core.getInput('branch', { required: true });
 const changelogs = core.getInput('changelogs', { required: true });
 
 const draft = core.getInput('draft') || false;
@@ -9594,6 +9594,7 @@ const prerelease = core.getInput('prerelease') || false;
 // **********************************************************
 async function main() {
   const { owner, repo } = github.context.repo;
+  core.info(`owner: ${owner}, repo: ${repo}`);
   const { ref_type: refType, ref: version } = github.context.payload;
   core.info(`ref_type: ${refType}, ref: ${version}`);
 
@@ -9604,47 +9605,43 @@ async function main() {
 
   let real = [];
   let arr = [];
-  const branchArr = dealStringToArr(branches);
   const changelogArr = dealStringToArr(changelogs);
+  const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
 
-  for (let i = 0; i < branchArr.length; i += 1) {
-    const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branchArr[i]}/`;
-    changelogArr.forEach(async (item,index) => {
-      let content = await axios.get(`${url}/${item}`);
-      let changelog =  false || getChangelog(content.data, version);
-      arr.push(changelog);
-      real.push(changelog);
-      if (changelog && index !== changelogArr.length - 1) {
-        arr.push('---');
-      }
-    });
-
-    let show = arr.join('\n');
-    await octokit.repos.createRelease({
-      owner,
-      repo,
-      tag_name: version,
-      name: version,
-      body: show,
-      draft,
-      prerelease,
-    });
-    core.info(`Success release ${version}`);
-
-    if (dingdingToken && dingdingMsg) {
-      const log = filterChangelogs(changelogArr, dingdingMsg, real);
-      axios.post(`https://oapi.dingtalk.com/robot/send?access_token=${dingdingToken}`, {
-        msgtype: 'markdown',
-        markdown: {
-          title: `${version} 发布日志`,
-          text: `# ${version} 发布日志 \n\n ${log}`,
-        },
-      });
-      core.info(`Success post dingding ${version}`);
+  for (let i = 0; i < changelogArr.length; i += 1) {
+    let content = await axios.get(`${url}/${changelogArr[i]}`);
+    let changelog =  false || getChangelog(content.data, version);
+    arr.push(changelog);
+    real.push(changelog);
+    if (changelog && i !== changelogArr.length - 1) {
+      arr.push('---');
     }
-    core.setOutput("check-result", !!checkResult);
   }
-}
+  let show = arr.join('\n');
+
+  await octokit.repos.createRelease({
+    owner,
+    repo,
+    tag_name: version,
+    name: version,
+    body: show,
+    draft,
+    prerelease,
+  });
+  core.info(`Success release ${version}`);
+
+  if (dingdingToken && dingdingMsg) {
+    const log = filterChangelogs(changelogArr, dingdingMsg, real);
+    axios.post(`https://oapi.dingtalk.com/robot/send?access_token=${dingdingToken}`, {
+      msgtype: 'markdown',
+      markdown: {
+        title: `${version} 发布日志`,
+        text: `# ${version} 发布日志 \n\n ${log}`,
+      },
+    });
+    core.info(`Success post dingding ${version}`);
+  }
+};
 
 main();
 

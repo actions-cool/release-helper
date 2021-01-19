@@ -14,8 +14,8 @@ inputs:
     description: 'DingTalk token'
   dingding-msg:
     description: 'DingTalk message'
-  branches:
-    description: 'Branchs'
+  branch:
+    description: 'Branch'
   changelogs:
     description: 'Changelogs'
   draft:

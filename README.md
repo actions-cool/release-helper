@@ -13,7 +13,7 @@
 | token | GitHub Token | string | ✔ |
 | triger | Triggering conditions | string | ✔ |
 | changelogs | The file path | string | ✔ |
-| branches | The file branch | string | ✔ |
+| branch | The file branch | string | ✔ |
 | draft | Whether create a draft (unpublished) release. Default `false` | boolean | ✖ |
 | prerelease | Whether to identify the release as a prerelease. Default `false` | boolean | ✖ |
 | dingding-token | 发布钉钉通知使用 | string | ✖ |
@@ -37,7 +37,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           triger: 'tag'
           changelogs: 'CHANGELOG.en-US.md, CHANGELOG.zh-CN.md'
-          branches: 'master, 3.x'
+          branch: 'master'
 ```
 
 ## 💖 Who is using?
