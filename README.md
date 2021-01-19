@@ -9,6 +9,7 @@
 ### Inputs
 
 | Name | Desc | Type | Required |
+| -- | -- | -- | -- |
 | token | GitHub Token | string | ✔ |
 | triger | Triggering conditions | string | ✔ |
 | changelogs | The file path | string | ✔ |
