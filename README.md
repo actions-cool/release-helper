@@ -40,6 +40,13 @@ jobs:
           branch: 'master'
 ```
 
+### Workflow
+
+- `git tag x.x.x`
+- `git push origin x.x.x:x.x.x`
+- New tag triger action
+- Auto release with changelog
+
 ## 💖 Who is using?
 
 
