@@ -5,10 +5,23 @@ branding:
   icon: 'shield'
   color: 'purple'
 inputs:
-  actions:
-    description: 'Action name'
+  triger:
+    description: 'How to start'
   token:
-    description: 'Github_token'
+    description: 'Github token'
+    default: ${{ github.token }}
+  dingding-token:
+    description: 'DingTalk token'
+  dingding-msg:
+    description: 'DingTalk message'
+  branches:
+    description: 'Branchs'
+  changelogs:
+    description: 'Changelogs'
+  draft:
+    description: 'Release draft'
+  prerelease:
+    description: 'Release prerelease'
 runs:
   using: node12
   main: 'dist/index.js'
