@@ -9594,13 +9594,12 @@ const prerelease = core.getInput('prerelease') || false;
 // **********************************************************
 async function main() {
   const { owner, repo } = github.context.repo;
-  console.log(github.event)
   core.info(`owner: ${owner}, repo: ${repo}`);
   const { ref_type: refType, ref: version } = github.context.payload;
   core.info(`ref_type: ${refType}, ref: ${version}`);
 
   if (refType !== triger) {
-    core.setFailed("The input 'triger' not match acionts 'on'");
+    core.info("The input 'triger' not match acionts 'on'");
     return false;
   }
 
