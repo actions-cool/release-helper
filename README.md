@@ -32,6 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: make release
+        if: github.event.ref_type == 'tag'
         uses: actions-cool/release-helper@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

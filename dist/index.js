@@ -9599,7 +9599,7 @@ async function main() {
   core.info(`ref_type: ${refType}, ref: ${version}`);
 
   if (refType !== triger) {
-    core.setFailed("The input 'triger' not match acionts 'on'");
+    core.info("The input 'triger' not match acionts 'on'");
     return false;
   }
 
