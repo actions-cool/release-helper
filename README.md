@@ -37,7 +37,7 @@ jobs:
     steps:
       - name: make release
         if: github.event.ref_type == 'tag'
-        uses: actions-cool/release-helper@v1
+        uses: actions-cool/release-helper@v1.2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           triger: 'tag'
