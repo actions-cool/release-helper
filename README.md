@@ -1,10 +1,14 @@
 # 🌈 Release Helper
 
+![](https://img.shields.io/github/workflow/status/actions-cool/release-helper/CI?style=flat-square)
+[![](https://img.shields.io/badge/marketplace-release--helper-blueviolet?style=flat-square)](https://github.com/marketplace/actions/release-helper)
+[![](https://img.shields.io/github/v/release/actions-cool/release-helper?style=flat-square&color=orange)](https://github.com/actions-cool/release-helper/releases)
+
 🤖 A GitHub Action that help you publish release.
 
 > Mainly used `antd`. Suggest [**changelog**](https://github.com/ant-design/ant-design/blob/master/CHANGELOG.en-US.md) use the same format.
 
-## 🎁 Usage
+## 🚀 Usage
 
 ### Inputs
 
@@ -48,19 +52,6 @@ jobs:
 - New tag triger action
 - Auto release with changelog
 
-## 💖 Who is using?
-
-<table>
-  <tr>
-    <td align="center" width="180">
-      <a href="https://github.com/ant-design/ant-design">
-        <img src="https://avatars1.githubusercontent.com/u/12101536?s=200&v=4" width="46" />
-        <div>ant-design</div>
-      </a>
-    </td>
-  </tr>
-</table>
-
 ## ⚡ Feedback
 
 You are very welcome to try it out and put forward your comments. You can use the following methods:
@@ -70,4 +61,4 @@ You are very welcome to try it out and put forward your comments. You can use th
 
 ## LICENSE
 
-[MIT](https://github.com/actions-cool/release-helper/blob/main/LICENSE)
+[MIT](./LICENSE)

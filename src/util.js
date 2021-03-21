@@ -1,20 +1,3 @@
-function dealStringToArr(para) {
-  /**
-   * in  'x1,x2,x3'
-   * out ['x1','x2','x3']
-   */
-  let arr = [];
-  if (para) {
-    const paraArr = para.split(',');
-    paraArr.forEach(it => {
-      if(it.trim()){
-        arr.push(it.trim())
-      }
-    })
-  }
-  return arr;
-};
-
 function getChangelog(content, version) {
   const lines = content.split('\n');
   const changeLog = [];
@@ -48,7 +31,6 @@ function filterChangelogs(changelogArr, filter, arr) {
 };
 
 module.exports = {
-  dealStringToArr,
   filterChangelogs,
   getChangelog,
 };

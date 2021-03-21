@@ -4672,6 +4672,49 @@ exports.Octokit = Octokit;
 
 /***/ }),
 
+/***/ 55:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+var checkPermission = function checkPermission(require, permission) {
+  /**
+   * 有权限返回 true
+   */
+  var permissions = ['read', 'write', 'admin'];
+  var requireNo = permissions.indexOf(require);
+  var permissionNo = permissions.indexOf(permission);
+  return requireNo <= permissionNo;
+};
+
+var dealStringToArr = function dealStringToArr(para) {
+  /**
+   * in  'x1,x2,x3'
+   * out ['x1','x2','x3']
+   */
+  var arr = [];
+
+  if (para) {
+    var paraArr = para.split(',');
+    paraArr.forEach(function (it) {
+      if (it.trim()) {
+        arr.push(it.trim());
+      }
+    });
+  }
+
+  return arr;
+};
+
+exports.checkPermission = checkPermission;
+exports.dealStringToArr = dealStringToArr;
+
+
+/***/ }),
+
 /***/ 6545:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -9572,10 +9615,11 @@ const github = __nccwpck_require__(5438);
 const axios = __nccwpck_require__(6545);
 
 const {
-  dealStringToArr,
   filterChangelogs,
   getChangelog,
 } = __nccwpck_require__(6254);
+
+const { dealStringToArr } = __nccwpck_require__(55);
 
 // **********************************************************
 const token = core.getInput('token');
@@ -9651,23 +9695,6 @@ main();
 /***/ 6254:
 /***/ ((module) => {
 
-function dealStringToArr(para) {
-  /**
-   * in  'x1,x2,x3'
-   * out ['x1','x2','x3']
-   */
-  let arr = [];
-  if (para) {
-    const paraArr = para.split(',');
-    paraArr.forEach(it => {
-      if(it.trim()){
-        arr.push(it.trim())
-      }
-    })
-  }
-  return arr;
-};
-
 function getChangelog(content, version) {
   const lines = content.split('\n');
   const changeLog = [];
@@ -9701,7 +9728,6 @@ function filterChangelogs(changelogArr, filter, arr) {
 };
 
 module.exports = {
-  dealStringToArr,
   filterChangelogs,
   getChangelog,
 };

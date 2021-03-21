@@ -4,10 +4,11 @@ const github = require('@actions/github');
 const axios = require('axios');
 
 const {
-  dealStringToArr,
   filterChangelogs,
   getChangelog,
 } = require('./util.js');
+
+const { dealStringToArr } = require('actions-util');
 
 // **********************************************************
 const token = core.getInput('token');
