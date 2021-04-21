@@ -15,7 +15,8 @@ const token = core.getInput('token');
 const octokit = new Octokit({ auth: `token ${token}` });
 
 const dingdingToken = core.getInput('dingding-token');
-const dingdingMsg= core.getInput('dingding-msg');
+const dingdingMsg = core.getInput('dingding-msg');
+const dingdingIgnore = core.getInput('dingding-ignore');
 
 const triger = core.getInput('triger', { required: true });
 const branch = core.getInput('branch', { required: true });
@@ -64,6 +65,16 @@ async function main() {
   core.info(`Success release ${version}`);
 
   if (dingdingToken && dingdingMsg) {
+    if (dingdingIgnore) {
+      const ignores = dealStringToArr(dingdingIgnore);
+      ignores.forEach(ig => {
+        if (version.includes(ig)) {
+          core.info(`[Version: ${version}] include ${ig}! Do ignore!`);
+          return false;
+        }
+      })
+    }
+
     const log = filterChangelogs(changelogArr, dingdingMsg, real);
     axios.post(`https://oapi.dingtalk.com/robot/send?access_token=${dingdingToken}`, {
       msgtype: 'markdown',
