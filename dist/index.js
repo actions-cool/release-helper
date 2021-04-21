@@ -9676,17 +9676,14 @@ async function main() {
   core.info(`Success release ${version}`);
 
   if (dingdingToken && dingdingMsg) {
-    console.log('1')
     if (dingdingIgnore) {
-      console.log('2')
       const ignores = dealStringToArr(dingdingIgnore);
-      ignores.forEach(ig => {
-        console.log(ig)
+      for (let ig of ignores) {
         if (version.includes(ig)) {
           core.info(`[Version: ${version}] include ${ig}! Do ignore!`);
           return false;
         }
-      })
+      }
     }
 
     const log = filterChangelogs(changelogArr, dingdingMsg, real);
