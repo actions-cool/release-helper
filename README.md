@@ -20,6 +20,7 @@
 | branch | The file branch | string | ✔ |
 | draft | Whether create a draft (unpublished) release. Default `false` | boolean | ✖ |
 | prerelease | Whether to identify the release as a prerelease. Default `false` | boolean | ✖ |
+| prerelease-filter | Version filter prerelease| string | ✖ |
 | dingding-token | 发布钉钉通知使用 | string | ✖ |
 | dingding-msg | 发布钉钉内容，从 changelogs 中选一个 | string | ✖ |
 | dingding-ignore | DingTalk ignore when version contain | string | ✖ |
@@ -38,7 +39,7 @@ jobs:
     steps:
       - name: make release
         if: github.event.ref_type == 'tag'
-        uses: actions-cool/release-helper@v1.3.0
+        uses: actions-cool/release-helper@v1.4.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           triger: 'tag'

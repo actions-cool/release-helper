@@ -24,6 +24,7 @@ const changelogs = core.getInput('changelogs', { required: true });
 
 const draft = core.getInput('draft') || false;
 const prerelease = core.getInput('prerelease') || false;
+const prereleaseFilter = core.getInput('prerelease-filter');
 
 // **********************************************************
 async function main() {
@@ -53,6 +54,18 @@ async function main() {
   }
   let show = arr.join('\n');
 
+  let pre = Boolean(prerelease);
+  if (prereleaseFilter) {
+    const filters = dealStringToArr(prereleaseFilter);
+    for (let fil of filters) {
+      if (version.includes(fil)) {
+        core.info(`[Version: ${version}] include ${fil}! Go prerelease!`);
+        pre = true;
+        return false;
+      }
+    }
+  }
+
   await octokit.repos.createRelease({
     owner,
     repo,
@@ -60,11 +73,11 @@ async function main() {
     name: version,
     body: show,
     draft,
-    prerelease,
+    prerelease: pre,
   });
   core.info(`Success release ${version}`);
 
-  if (dingdingToken && dingdingMsg) {
+  if (dingdingToken && dingdingMsg && !pre) {
     if (dingdingIgnore) {
       const ignores = dealStringToArr(dingdingIgnore);
       for (let ig of ignores) {

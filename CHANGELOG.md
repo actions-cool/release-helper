@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.4.0
+
+`2021.04.22`
+
+- feat: add `prerelease-filter`.
+
 ## v1.3.0
 
 `2021.04.21`

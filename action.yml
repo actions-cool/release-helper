@@ -24,6 +24,8 @@ inputs:
     description: 'Release draft'
   prerelease:
     description: 'Release prerelease'
+  prerelease-filter:
+    description: 'Prerelease filter'
 runs:
   using: node12
   main: 'dist/index.js'
