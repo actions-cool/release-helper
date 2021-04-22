@@ -61,6 +61,7 @@ async function main() {
       if (version.includes(fil)) {
         core.info(`[Version: ${version}] include ${fil}! Go prerelease!`);
         pre = true;
+        break;
       }
     }
   }
