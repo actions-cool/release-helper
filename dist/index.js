@@ -10839,11 +10839,12 @@ function main() {
             const prereleaseFilter = core.getInput('prerelease-filter');
             const prettier = core.getInput('prettier');
             const { owner, repo } = github.context.repo;
-            core.info(`owner: ${owner}, repo: ${repo}`);
+            const { info, error } = core;
+            info(`owner: ${owner}, repo: ${repo}`);
             const { ref_type: refType, ref: version } = github.context.payload;
-            core.info(`ref_type: ${refType}, ref: ${version}`);
+            info(`ref_type: ${refType}, ref: ${version}`);
             if (refType !== triger) {
-                core.error("The input 'triger' not match acionts 'on'");
+                error("[Actions] The input 'triger' not match acionts 'on'");
                 return;
             }
             const real = [];
@@ -10853,9 +10854,9 @@ function main() {
             for (let i = 0; i < changelogArr.length; i += 1) {
                 // eslint-disable-next-line no-await-in-loop
                 const { data } = yield axios_1.default.get(`${url}/${changelogArr[i]}`);
-                const changelog = util_1.getChangelog(data, version, prettier === 'true');
+                const [changelog, changelogPre] = util_1.getChangelog(data, version, prettier === 'true');
                 arr.push(changelog);
-                real.push(changelog);
+                real.push(changelogPre);
                 if (changelog && i !== changelogArr.length - 1) {
                     arr.push('---');
                 }
@@ -10867,7 +10868,7 @@ function main() {
                 // eslint-disable-next-line no-restricted-syntax
                 for (const fil of filters) {
                     if (version.includes(fil)) {
-                        core.info(`[Version: ${version}] include ${fil}! Go prerelease!`);
+                        info(`[Actions] [Version: ${version}] include ${fil}! Go prerelease!`);
                         pre = true;
                         break;
                     }
@@ -10882,14 +10883,14 @@ function main() {
                 draft: !!draft,
                 prerelease: pre,
             });
-            core.info(`Success release ${version}`);
+            info(`[Actions] Success release ${version}.`);
             if (dingdingToken && dingdingMsg && !pre) {
                 if (dingdingIgnore) {
                     const ignores = actions_util_1.dealStringToArr(dingdingIgnore);
                     // eslint-disable-next-line no-restricted-syntax
                     for (const ig of ignores) {
                         if (version.includes(ig)) {
-                            core.info(`[Version: ${version}] include ${ig}! Do ignore!`);
+                            info(`[Actions] [Version: ${version}] include ${ig}! Do ignore!`);
                             return;
                         }
                     }
@@ -10902,7 +10903,7 @@ function main() {
                         text: `# ${version} 发布日志 \n\n ${log}`,
                     },
                 });
-                core.info(`Success post dingding ${version}`);
+                info(`[Actions] Success post dingding message of ${version}.`);
             }
         }
         catch (e) {
@@ -10925,6 +10926,7 @@ exports.filterChangelogs = exports.getChangelog = void 0;
 const getChangelog = (content, version, prettier) => {
     const lines = content.split('\n');
     const changeLog = [];
+    const changeLogPre = [];
     const startPattern = new RegExp(`^## ${version}`);
     const stopPattern = /^## /; // 前一个版本
     const skipPattern = /^`/; // 日期
@@ -10942,13 +10944,14 @@ const getChangelog = (content, version, prettier) => {
                 if (line.startsWith('  -'))
                     l = `${line.replace('  -', '\xa0\xa0\xa0\xa0◇')}\n`;
             }
-            changeLog.push(l);
+            changeLogPre.push(l);
+            changeLog.push(line);
         }
         if (!begin) {
             begin = startPattern.test(line);
         }
     }
-    return changeLog.join('\n');
+    return [changeLog.join('\n'), changeLogPre.join('\n')];
 };
 exports.getChangelog = getChangelog;
 const filterChangelogs = (changelogArr, filter, arr) => {
