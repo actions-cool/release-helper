@@ -3,6 +3,7 @@
 # production
 # /dist
 /docs-dist
+/lib
 
 # Log file
 *.log
@@ -18,7 +19,7 @@ yarn-error.log*
 
 # dependencies
 node_modules
-# yarn.lock
+yarn.lock
 package-lock.json
 
 # local env files

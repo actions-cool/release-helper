@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.5.0
+
+`2021.08.26`
+
+- [#3](https://github.com/actions-cool/release-helper/pull/3)
+  - refactor: ts
+  - feat: add prettier
+
 ## v1.4.0
 
 `2021.04.22`

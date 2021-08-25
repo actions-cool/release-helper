@@ -12,5 +12,5 @@ jobs:
       - name: install
         run: yarn install
 
-      - name: package
-        run: yarn package
+      - name: all
+        run: yarn all
