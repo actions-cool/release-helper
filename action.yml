@@ -14,6 +14,8 @@ inputs:
     description: 'DingTalk token'
   dingding-msg:
     description: 'DingTalk message'
+  prettier:
+    description: 'DingTale message prettier'
   dingding-ignore:
     description: 'DingTalk ignore when version contain'
   branch:

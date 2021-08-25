@@ -2,31 +2,44 @@
   "name": "release-helper",
   "private": true,
   "description": "A GitHub Action that help you publish release.",
-  "main": "src/main.js",
-  "scripts": {
-    "package": "ncc build src/main.js -o dist"
-  },
-  "author": "xrkffgg",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/actions-cool/release-helper.git",
-    "branch": "main"
-  },
   "keywords": [
     "actions",
     "release",
     "helper",
     "github"
   ],
-  "devDependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0",
-    "@octokit/rest": "^18.0.12",
-    "@vercel/ncc": "^0.27.0",
-    "axios": "^0.21.1"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/actions-cool/release-helper.git",
+    "branch": "main"
+  },
+  "license": "MIT",
+  "author": "xrkffgg",
+  "main": "src/main.js",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts",
+    "lint": "eslint src/**/*.ts",
+    "lint-fix": "eslint src/**/*.ts --fix",
+    "package": "ncc build src/main.ts -o dist",
+    "all": "npm run format-check && npm run lint && npm run build && npm run package"
   },
   "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
     "actions-util": "^1.0.0"
+  },
+  "devDependencies": {
+    "@octokit/rest": "^18.0.12",
+    "@typescript-eslint/parser": "^4.15.2",
+    "@umijs/fabric": "^2.6.2",
+    "@vercel/ncc": "^0.27.0",
+    "axios": "^0.21.1",
+    "eslint": "^7.14.0",
+    "eslint-plugin-github": "^4.1.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.2"
   }
 }
