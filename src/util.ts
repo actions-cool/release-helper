@@ -1,6 +1,7 @@
-export const getChangelog = (content: string, version: string, prettier: boolean): string => {
+export const getChangelog = (content: string, version: string, prettier: boolean): string[] => {
   const lines = content.split('\n');
   const changeLog = [];
+  const changeLogPre = [];
   const startPattern = new RegExp(`^## ${version}`);
   const stopPattern = /^## /; // 前一个版本
   const skipPattern = /^`/; // 日期
@@ -16,13 +17,14 @@ export const getChangelog = (content: string, version: string, prettier: boolean
         if (line.startsWith('-')) l = `${line.replace('-', '◆')}\n`;
         if (line.startsWith('  -')) l = `${line.replace('  -', '\xa0\xa0\xa0\xa0◇')}\n`;
       }
-      changeLog.push(l);
+      changeLogPre.push(l);
+      changeLog.push(line);
     }
     if (!begin) {
       begin = startPattern.test(line);
     }
   }
-  return changeLog.join('\n');
+  return [changeLog.join('\n'), changeLogPre.join('\n')];
 };
 
 export const filterChangelogs = (changelogArr: string[], filter: string, arr: string[]): string => {

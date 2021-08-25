@@ -28,12 +28,14 @@ async function main(): Promise<void> {
     const prettier = core.getInput('prettier');
 
     const { owner, repo } = github.context.repo;
-    core.info(`owner: ${owner}, repo: ${repo}`);
+    const { info, error } = core;
+
+    info(`owner: ${owner}, repo: ${repo}`);
     const { ref_type: refType, ref: version } = github.context.payload;
-    core.info(`ref_type: ${refType}, ref: ${version}`);
+    info(`ref_type: ${refType}, ref: ${version}`);
 
     if (refType !== triger) {
-      core.error("The input 'triger' not match acionts 'on'");
+      error("[Actions] The input 'triger' not match acionts 'on'");
       return;
     }
 
@@ -45,9 +47,9 @@ async function main(): Promise<void> {
     for (let i = 0; i < changelogArr.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       const { data } = await axios.get(`${url}/${changelogArr[i]}`);
-      const changelog = getChangelog(data, version, prettier === 'true');
+      const [changelog, changelogPre] = getChangelog(data, version, prettier === 'true');
       arr.push(changelog);
-      real.push(changelog);
+      real.push(changelogPre);
       if (changelog && i !== changelogArr.length - 1) {
         arr.push('---');
       }
@@ -60,7 +62,7 @@ async function main(): Promise<void> {
       // eslint-disable-next-line no-restricted-syntax
       for (const fil of filters) {
         if (version.includes(fil)) {
-          core.info(`[Version: ${version}] include ${fil}! Go prerelease!`);
+          info(`[Actions] [Version: ${version}] include ${fil}! Go prerelease!`);
           pre = true;
           break;
         }
@@ -76,7 +78,7 @@ async function main(): Promise<void> {
       draft: !!draft,
       prerelease: pre,
     });
-    core.info(`Success release ${version}`);
+    info(`[Actions] Success release ${version}.`);
 
     if (dingdingToken && dingdingMsg && !pre) {
       if (dingdingIgnore) {
@@ -84,7 +86,7 @@ async function main(): Promise<void> {
         // eslint-disable-next-line no-restricted-syntax
         for (const ig of ignores) {
           if (version.includes(ig)) {
-            core.info(`[Version: ${version}] include ${ig}! Do ignore!`);
+            info(`[Actions] [Version: ${version}] include ${ig}! Do ignore!`);
             return;
           }
         }
@@ -98,7 +100,7 @@ async function main(): Promise<void> {
           text: `# ${version} 发布日志 \n\n ${log}`,
         },
       });
-      core.info(`Success post dingding ${version}`);
+      info(`[Actions] Success post dingding message of ${version}.`);
     }
   } catch (e) {
     core.error(`[Actions] Error: ${e.message}`);
