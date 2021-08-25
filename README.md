@@ -10,21 +10,6 @@
 
 ## 🚀 Usage
 
-### Inputs
-
-| Name | Desc | Type | Required |
-| -- | -- | -- | -- |
-| token | GitHub Token | string | ✔ |
-| triger | Triggering conditions | string | ✔ |
-| changelogs | The file path | string | ✔ |
-| branch | The file branch | string | ✔ |
-| draft | Whether create a draft (unpublished) release. Default `false` | boolean | ✖ |
-| prerelease | Whether to identify the release as a prerelease. Default `false` | boolean | ✖ |
-| prerelease-filter | Version filter prerelease| string | ✖ |
-| dingding-token | 发布钉钉通知使用 | string | ✖ |
-| dingding-msg | 发布钉钉内容，从 changelogs 中选一个 | string | ✖ |
-| dingding-ignore | DingTalk ignore when version contain | string | ✖ |
-
 ### Example
 
 ```yml
@@ -47,7 +32,24 @@ jobs:
           branch: 'master'
 ```
 
+### Inputs
+
+| Name | Desc | Type | Required |
+| -- | -- | -- | -- |
+| token | GitHub Token | string | ✔ |
+| triger | Triggering conditions | string | ✔ |
+| changelogs | The file path | string | ✔ |
+| branch | The file branch | string | ✔ |
+| draft | Whether create a draft (unpublished) release. Default `false` | boolean | ✖ |
+| prerelease | Whether to identify the release as a prerelease. Default `false` | boolean | ✖ |
+| prerelease-filter | Version filter prerelease| string | ✖ |
+| dingding-token | 发布钉钉通知使用 | string | ✖ |
+| dingding-msg | 发布钉钉内容，从 changelogs 中选一个 | string | ✖ |
+| prettier | 钉钉内容美化 | boolean | ✖ |
+| dingding-ignore | DingTalk ignore when version contain | string | ✖ |
+
 - [钉钉群自定义机器人接入](https://developers.dingtalk.com/document/robots/custom-robot-access)
+- 由于钉钉对二级层级展示不好，这里可设置 prettier 开启人为美化
 
 ### Workflow
 
