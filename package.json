@@ -15,7 +15,7 @@
   },
   "license": "MIT",
   "author": "xrkffgg",
-  "main": "src/main.js",
+  "main": "src/main.ts",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",
