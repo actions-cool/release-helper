@@ -10943,6 +10943,7 @@ const getChangelog = (content, version, prettier) => {
                     l = `${line.replace('-', '◆')}\n`;
                 if (line.startsWith('  -'))
                     l = `${line.replace('  -', '\xa0\xa0\xa0\xa0◇')}\n`;
+                l = `${line}\n`;
             }
             changeLogPre.push(l);
             changeLog.push(line);
