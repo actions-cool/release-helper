@@ -25,11 +25,7 @@ export const getChangelog = (content: string, version: string, prettier: boolean
   return changeLog.join('\n');
 };
 
-export const filterChangelogs = (
-  changelogArr: string[],
-  filter: string,
-  arr: string[],
-): string => {
+export const filterChangelogs = (changelogArr: string[], filter: string, arr: string[]): string => {
   let result = '';
   changelogArr.forEach((item, index) => {
     if (item === filter) {
