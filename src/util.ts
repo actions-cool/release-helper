@@ -1,4 +1,3 @@
-
 export const DefaultPrettier = ['◆', '◇'];
 
 export const getChangelog = (content: string, version: string, prettier: string[]): string[] => {
@@ -18,7 +17,9 @@ export const getChangelog = (content: string, version: string, prettier: string[
       let l = line;
       const len = prettier.length;
       if (len && prettier[0] !== 'false') {
-        let r1; let r2;
+        let r1;
+        let r2;
+        console.log(prettier);
         if (len === 1 && prettier[0] === 'true') {
           [r1, r2] = DefaultPrettier;
         } else if (len === 1) {

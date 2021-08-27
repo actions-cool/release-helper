@@ -11459,6 +11459,7 @@ const getChangelog = (content, version, prettier) => {
             if (len && prettier[0] !== 'false') {
                 let r1;
                 let r2;
+                console.log(prettier);
                 if (len === 1 && prettier[0] === 'true') {
                     [r1, r2] = exports.DefaultPrettier;
                 }
