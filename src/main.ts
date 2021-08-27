@@ -47,7 +47,7 @@ async function main(): Promise<void> {
     for (let i = 0; i < changelogArr.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       const { data } = await axios.get(`${url}/${changelogArr[i]}`);
-      const [changelog, changelogPre] = getChangelog(data, version, prettier === 'true');
+      const [changelog, changelogPre] = getChangelog(data, version, dealStringToArr(prettier));
       arr.push(changelog);
       real.push(changelogPre);
       if (changelog && i !== changelogArr.length - 1) {
@@ -102,7 +102,7 @@ async function main(): Promise<void> {
       });
       info(`[Actions] Success post dingding message of ${version}.`);
     }
-  } catch (e) {
+  } catch (e: any) {
     core.error(`[Actions] Error: ${e.message}`);
   }
 }
