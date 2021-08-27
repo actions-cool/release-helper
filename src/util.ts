@@ -8,32 +8,36 @@ export const getChangelog = (content: string, version: string, prettier: string[
   const stopPattern = /^## /; // 前一个版本
   const skipPattern = /^`/; // 日期
   let begin = false;
+
+  const len = prettier.length;
+  let r1: string;
+  let r2: string;
+
+  if (len === 1 && prettier[0] === 'true') {
+    [r1, r2] = DefaultPrettier;
+  } else if (len === 1) {
+    // eslint-disable-next-line prefer-destructuring
+    r1 = prettier[0];
+    // eslint-disable-next-line prefer-destructuring
+    r2 = prettier[0];
+  } else {
+    [r1, r2] = prettier;
+  }
+
+  // Add default gap
+  r2 = `\xa0\xa0\xa0\xa0${r2}`;
+
+
   for (let i = 0; i < lines.length; i += 1) {
     const line = lines[i];
     if (begin && stopPattern.test(line)) {
       break;
     }
+
     if (begin && line && !skipPattern.test(line)) {
       let l = line;
-      const len = prettier.length;
+
       if (len && prettier[0] !== 'false') {
-        let r1;
-        let r2;
-        console.log(prettier);
-        if (len === 1 && prettier[0] === 'true') {
-          [r1, r2] = DefaultPrettier;
-        } else if (len === 1) {
-          // eslint-disable-next-line prefer-destructuring
-          r1 = prettier[0];
-          // eslint-disable-next-line prefer-destructuring
-          r2 = prettier[0];
-        } else {
-          [r1, r2] = prettier;
-        }
-
-        // Add default gap
-        r2 = `\xa0\xa0\xa0\xa0${r2}`;
-
         if (line.startsWith('-')) l = `${line.replace('-', r1)}\n`;
         if (line.startsWith('  -')) l = `${line.replace('  -', r2)}\n`;
         l = `${line}\n`;
