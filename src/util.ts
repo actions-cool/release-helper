@@ -27,6 +27,9 @@ export const getChangelog = (content: string, version: string, prettier: string[
   // Add default gap
   r2 = `\xa0\xa0\xa0\xa0${r2}`;
 
+  console.log(r1)
+  console.log(r2)
+
 
   for (let i = 0; i < lines.length; i += 1) {
     const line = lines[i];
