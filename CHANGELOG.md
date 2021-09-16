@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.6.0
+
+`2021.09.16`
+
+- feat: add `prerelease-notice`.
+
 ## v1.5.0
 
 `2021.08.26`

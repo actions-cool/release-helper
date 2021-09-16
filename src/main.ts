@@ -24,6 +24,7 @@ async function main(): Promise<void> {
     const draft = core.getInput('draft') || false;
     const prerelease = core.getInput('prerelease') || false;
     const prereleaseFilter = core.getInput('prerelease-filter');
+    const prereleaseNotice = core.getInput('prerelease-notice') || false;
 
     const prettier = core.getInput('prettier');
 
@@ -80,7 +81,9 @@ async function main(): Promise<void> {
     });
     info(`[Actions] Success release ${version}.`);
 
-    if (dingdingToken && dingdingMsg && !pre) {
+    const ddNotice = prereleaseNotice === 'true' || !pre;
+
+    if (dingdingToken && dingdingMsg && ddNotice) {
       if (dingdingIgnore) {
         const ignores = dealStringToArr(dingdingIgnore);
         // eslint-disable-next-line no-restricted-syntax
@@ -102,7 +105,7 @@ async function main(): Promise<void> {
       });
       info(`[Actions] Success post dingding message of ${version}.`);
     }
-  } catch (e) {
+  } catch (e: any) {
     core.error(`[Actions] Error: ${e.message}`);
   }
 }

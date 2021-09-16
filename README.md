@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: make release
         if: github.event.ref_type == 'tag'
-        uses: actions-cool/release-helper@v1.5.0
+        uses: actions-cool/release-helper@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           triger: 'tag'
@@ -43,6 +43,7 @@ jobs:
 | draft | Whether create a draft (unpublished) release. Default `false` | boolean | ✖ |
 | prerelease | Whether to identify the release as a prerelease. Default `false` | boolean | ✖ |
 | prerelease-filter | Version filter prerelease| string | ✖ |
+| prerelease-notice | prerelease 是否发布钉钉通知，默认为 false | ✖ |
 | dingding-token | 发布钉钉通知使用 | string | ✖ |
 | dingding-msg | 发布钉钉内容，从 changelogs 中选一个 | string | ✖ |
 | prettier | 钉钉内容美化 | boolean | ✖ |

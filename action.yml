@@ -28,6 +28,8 @@ inputs:
     description: 'Release prerelease'
   prerelease-filter:
     description: 'Prerelease filter'
+  prerelease-notice:
+    description: 'Prerelease notice'
 runs:
   using: node12
   main: 'dist/index.js'
