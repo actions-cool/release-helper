@@ -4,7 +4,7 @@ import { Octokit } from '@octokit/rest';
 import { dealStringToArr } from 'actions-util';
 import axios from 'axios';
 
-import { filterChangelogs, getChangelog } from './util';
+import { filterChangelogs, getChangelog, replaceMsg } from './util';
 
 // **********************************************************
 async function main(): Promise<void> {
@@ -95,12 +95,39 @@ async function main(): Promise<void> {
         }
       }
 
-      const log = filterChangelogs(changelogArr, dingdingMsg, real);
+      let log = filterChangelogs(changelogArr, dingdingMsg, real);
+      let msgTitle = core.getInput('msg-title');
+      const msgHead = core.getInput('msg-head');
+      const msgPoster = core.getInput('msg-poster');
+      const msgFooter = core.getInput('msg-footer');
+
+      const replaceMsg4Me = (msg: string) => {
+        return replaceMsg(msg, version, owner, repo);
+      };
+
+      if (msgTitle) {
+        msgTitle = replaceMsg4Me(msgTitle);
+      } else {
+        msgTitle = `# ${version} 发布日志`;
+      }
+
+      if (msgHead) {
+        log = replaceMsg4Me(msgHead) + '\n\n' + log;
+      }
+
+      if (msgPoster) {
+        log = `![](${msgPoster})\n\n${log}`;
+      }
+
+      if (msgFooter) {
+        log += `\n\n${replaceMsg4Me(msgFooter)}`;
+      }
+
       axios.post(`https://oapi.dingtalk.com/robot/send?access_token=${dingdingToken}`, {
         msgtype: 'markdown',
         markdown: {
           title: `${version} 发布日志`,
-          text: `# ${version} 发布日志 \n\n ${log}`,
+          text: `${msgTitle} \n\n ${log}`,
         },
       });
       info(`[Actions] Success post dingding message of ${version}.`);

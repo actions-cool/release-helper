@@ -37,3 +37,9 @@ export const filterChangelogs = (changelogArr: string[], filter: string, arr: st
   });
   return result;
 };
+
+export const replaceMsg = (msg: string, version: string, owner: string, repo: string) => {
+  return msg
+    .replace('{{v}}', version)
+    .replace('{{url}}', `https://github.com/${owner}/${repo}/releases/tag/${version}`);
+};

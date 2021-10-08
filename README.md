@@ -46,6 +46,10 @@ jobs:
 | prerelease-notice | prerelease 是否发布钉钉通知，默认为 false | ✖ |
 | dingding-token | 发布钉钉通知使用 | string | ✖ |
 | dingding-msg | 发布钉钉内容，从 changelogs 中选一个 | string | ✖ |
+| msg-title | 钉钉内容标题自定义 | string | ✖ |
+| msg-poster | 钉钉内容海报，传入图片 url | string | ✖ |
+| msg-head | 钉钉内容主题前置自定义 | string | ✖ |
+| msg-footer | 钉钉内容主题后置自定义 | string | ✖ |
 | prettier | 钉钉内容美化 | boolean | ✖ |
 | dingding-ignore | DingTalk ignore when version contain | string | ✖ |
 

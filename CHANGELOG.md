@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.7.0
+
+`2021.10.08`
+
+- 🚀 feat: add `msg-title` `msg-poster` `msg-head` `msg-footer` for rich message. [#7](https://github.com/actions-cool/release-helper/pull/7)
+
 ## v1.6.0
 
 `2021.09.16`
