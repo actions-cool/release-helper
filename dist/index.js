@@ -11413,12 +11413,33 @@ function main() {
                         }
                     }
                 }
-                const log = (0, util_1.filterChangelogs)(changelogArr, dingdingMsg, real);
+                let log = (0, util_1.filterChangelogs)(changelogArr, dingdingMsg, real);
+                let msgTitle = core.getInput('msg-title');
+                const msgHead = core.getInput('msg-head');
+                const msgPoster = core.getInput('msg-poster');
+                const msgFooter = core.getInput('msg-footer');
+                if (msgTitle) {
+                    msgTitle = msgTitle.replace('{{v}}', version);
+                }
+                else {
+                    msgTitle = `# ${version} 发布日志`;
+                }
+                if (msgHead) {
+                    log = msgHead.replace('{{v}}', version) + log;
+                }
+                if (msgPoster) {
+                    log = `![](${msgPoster})\n${log}`;
+                }
+                if (msgFooter) {
+                    log += msgFooter
+                        .replace('{{v}}', version)
+                        .replace('{{url}}', `https://github.com/${owner}/${repo}/releases/tag/${version}`);
+                }
                 axios_1.default.post(`https://oapi.dingtalk.com/robot/send?access_token=${dingdingToken}`, {
                     msgtype: 'markdown',
                     markdown: {
                         title: `${version} 发布日志`,
-                        text: `# ${version} 发布日志 \n\n ${log}`,
+                        text: `${msgTitle} \n\n ${log}`,
                     },
                 });
                 info(`[Actions] Success post dingding message of ${version}.`);
