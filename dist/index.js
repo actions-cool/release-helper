@@ -11418,22 +11418,23 @@ function main() {
                 const msgHead = core.getInput('msg-head');
                 const msgPoster = core.getInput('msg-poster');
                 const msgFooter = core.getInput('msg-footer');
+                const replaceMsg4Me = (msg) => {
+                    return (0, util_1.replaceMsg)(msg, version, owner, repo);
+                };
                 if (msgTitle) {
-                    msgTitle = msgTitle.replace('{{v}}', version);
+                    msgTitle = replaceMsg4Me(msgTitle);
                 }
                 else {
                     msgTitle = `# ${version} 发布日志`;
                 }
                 if (msgHead) {
-                    log = msgHead.replace('{{v}}', version) + log;
+                    log = replaceMsg4Me(msgHead) + '\n\n' + log;
                 }
                 if (msgPoster) {
-                    log = `![](${msgPoster})\n${log}`;
+                    log = `![](${msgPoster})\n\n${log}`;
                 }
                 if (msgFooter) {
-                    log += msgFooter
-                        .replace('{{v}}', version)
-                        .replace('{{url}}', `https://github.com/${owner}/${repo}/releases/tag/${version}`);
+                    log += `\n\n${replaceMsg4Me(msgFooter)}`;
                 }
                 axios_1.default.post(`https://oapi.dingtalk.com/robot/send?access_token=${dingdingToken}`, {
                     msgtype: 'markdown',
@@ -11461,7 +11462,7 @@ main();
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.filterChangelogs = exports.getChangelog = void 0;
+exports.replaceMsg = exports.filterChangelogs = exports.getChangelog = void 0;
 const getChangelog = (content, version, prettier) => {
     const lines = content.split('\n');
     const changeLog = [];
@@ -11504,6 +11505,12 @@ const filterChangelogs = (changelogArr, filter, arr) => {
     return result;
 };
 exports.filterChangelogs = filterChangelogs;
+const replaceMsg = (msg, version, owner, repo) => {
+    return msg
+        .replace('{{v}}', version)
+        .replace('{{url}}', `https://github.com/${owner}/${repo}/releases/tag/${version}`);
+};
+exports.replaceMsg = replaceMsg;
 
 
 /***/ }),

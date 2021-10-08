@@ -4,7 +4,7 @@ import { Octokit } from '@octokit/rest';
 import { dealStringToArr } from 'actions-util';
 import axios from 'axios';
 
-import { filterChangelogs, getChangelog } from './util';
+import { filterChangelogs, getChangelog, replaceMsg } from './util';
 
 // **********************************************************
 async function main(): Promise<void> {
@@ -101,24 +101,26 @@ async function main(): Promise<void> {
       const msgPoster = core.getInput('msg-poster');
       const msgFooter = core.getInput('msg-footer');
 
+      const replaceMsg4Me = (msg: string) => {
+        return replaceMsg(msg, version, owner, repo);
+      };
+
       if (msgTitle) {
-        msgTitle = msgTitle.replace('{{v}}', version);
+        msgTitle = replaceMsg4Me(msgTitle);
       } else {
         msgTitle = `# ${version} 发布日志`;
       }
 
       if (msgHead) {
-        log = msgHead.replace('{{v}}', version) + log;
+        log = replaceMsg4Me(msgHead) + '\n\n' + log;
       }
 
       if (msgPoster) {
-        log = `![](${msgPoster})\n${log}`;
+        log = `![](${msgPoster})\n\n${log}`;
       }
 
       if (msgFooter) {
-        log += msgFooter
-          .replace('{{v}}', version)
-          .replace('{{url}}', `https://github.com/${owner}/${repo}/releases/tag/${version}`);
+        log += `\n\n${replaceMsg4Me(msgFooter)}`;
       }
 
       axios.post(`https://oapi.dingtalk.com/robot/send?access_token=${dingdingToken}`, {
