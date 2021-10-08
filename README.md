@@ -55,6 +55,10 @@ jobs:
 
 - [钉钉群自定义机器人接入](https://developers.dingtalk.com/document/robots/custom-robot-access)
 - 由于钉钉对二级层级展示不好，这里可设置 prettier 开启人为美化
+- msg 自定义支持 2 个替换
+  - `{{v}}` -> 具体版本
+  - `{{url}}` -> 发布链接
+  - 例如：`msg-footer: '> footer: version is {{v}} url is [url]({{url}})'`
 
 ### Workflow
 
