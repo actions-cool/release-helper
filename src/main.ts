@@ -27,6 +27,7 @@ async function main(): Promise<void> {
     const prereleaseNotice = core.getInput('prerelease-notice') || false;
 
     const prettier = core.getInput('prettier');
+    console.log(prettier)
 
     const { owner, repo } = github.context.repo;
     const { info, error } = core;
@@ -49,6 +50,7 @@ async function main(): Promise<void> {
       // eslint-disable-next-line no-await-in-loop
       const { data } = await axios.get(`${url}/${changelogArr[i]}`);
       const [changelog, changelogPre] = getChangelog(data, version, prettier !== '');
+      console.log(changelogPre)
       arr.push(changelog);
       real.push(changelogPre);
       if (changelog && i !== changelogArr.length - 1) {
