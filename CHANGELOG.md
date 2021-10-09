@@ -1,4 +1,18 @@
+<!--
+🐞 Bug fix
+🚀 New feature
+💄 Perf
+📝 Docs
+⚡️ Code style
+-->
+
 # Changelog
+
+## v1.7.1
+
+`2021.10.09`
+
+- 🐞 fix: prettier not active. [#8](https://github.com/actions-cool/release-helper/pull/8)
 
 ## v1.7.0
 

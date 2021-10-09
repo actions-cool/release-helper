@@ -43,7 +43,7 @@ jobs:
 | draft | Whether create a draft (unpublished) release. Default `false` | boolean | ✖ |
 | prerelease | Whether to identify the release as a prerelease. Default `false` | boolean | ✖ |
 | prerelease-filter | Version filter prerelease| string | ✖ |
-| prerelease-notice | prerelease 是否发布钉钉通知，默认为 false | ✖ |
+| prerelease-notice | prerelease 是否发布钉钉通知，默认为 false | boolean | ✖ |
 | dingding-token | 发布钉钉通知使用 | string | ✖ |
 | dingding-msg | 发布钉钉内容，从 changelogs 中选一个 | string | ✖ |
 | msg-title | 钉钉内容标题自定义 | string | ✖ |
