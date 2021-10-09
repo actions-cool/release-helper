@@ -11371,7 +11371,7 @@ function main() {
             for (let i = 0; i < changelogArr.length; i += 1) {
                 // eslint-disable-next-line no-await-in-loop
                 const { data } = yield axios_1.default.get(`${url}/${changelogArr[i]}`);
-                const [changelog, changelogPre] = (0, util_1.getChangelog)(data, version, prettier === 'true');
+                const [changelog, changelogPre] = (0, util_1.getChangelog)(data, version, prettier !== '');
                 arr.push(changelog);
                 real.push(changelogPre);
                 if (changelog && i !== changelogArr.length - 1) {
