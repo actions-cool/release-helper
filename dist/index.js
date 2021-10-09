@@ -11355,7 +11355,6 @@ function main() {
             const prereleaseFilter = core.getInput('prerelease-filter');
             const prereleaseNotice = core.getInput('prerelease-notice') || false;
             const prettier = core.getInput('prettier');
-            console.log(prettier);
             const { owner, repo } = github.context.repo;
             const { info, error } = core;
             info(`owner: ${owner}, repo: ${repo}`);
@@ -11373,7 +11372,6 @@ function main() {
                 // eslint-disable-next-line no-await-in-loop
                 const { data } = yield axios_1.default.get(`${url}/${changelogArr[i]}`);
                 const [changelog, changelogPre] = (0, util_1.getChangelog)(data, version, prettier !== '');
-                console.log(changelogPre);
                 arr.push(changelog);
                 real.push(changelogPre);
                 if (changelog && i !== changelogArr.length - 1) {
