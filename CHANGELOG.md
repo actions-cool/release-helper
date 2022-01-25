@@ -8,6 +8,12 @@
 
 # Changelog
 
+## v2.0.0
+
+`2022.01.25`
+
+- 🚀 feat: dingdingToken support array setting. [#9](https://github.com/actions-cool/release-helper/pull/9)
+
 ## v1.7.1
 
 `2021.10.09`
