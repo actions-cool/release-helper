@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: make release
         if: github.event.ref_type == 'tag'
-        uses: actions-cool/release-helper@v1
+        uses: actions-cool/release-helper@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           triger: 'tag'
@@ -59,6 +59,8 @@ jobs:
   - `{{v}}` -> 具体版本
   - `{{url}}` -> 发布链接
   - 例如：`msg-footer: '> footer: version is {{v}} url is [url]({{url}})'`
+- 你可以设置多个 dingding-token
+  - `dingding-token: ${{ secrets.TOKEN1 }} ${{ secrets.TOKEN2 }}`
 
 ### Workflow
 

@@ -127,13 +127,16 @@ async function main(): Promise<void> {
 
       for (let dingdingTokenKey of dingdingTokenArr) {
         if (dingdingTokenKey) {
-          await axios.post(`https://oapi.dingtalk.com/robot/send?access_token=${dingdingTokenKey}`, {
-            msgtype: 'markdown',
-            markdown: {
-              title: `${version} 发布日志`,
-              text: `${msgTitle} \n\n ${log}`,
+          await axios.post(
+            `https://oapi.dingtalk.com/robot/send?access_token=${dingdingTokenKey}`,
+            {
+              msgtype: 'markdown',
+              markdown: {
+                title: `${version} 发布日志`,
+                text: `${msgTitle} \n\n ${log}`,
+              },
             },
-          });
+          );
         }
       }
 
