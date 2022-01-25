@@ -11436,13 +11436,18 @@ function main() {
                 if (msgFooter) {
                     log += `\n\n${replaceMsg4Me(msgFooter)}`;
                 }
-                axios_1.default.post(`https://oapi.dingtalk.com/robot/send?access_token=${dingdingToken}`, {
-                    msgtype: 'markdown',
-                    markdown: {
-                        title: `${version} 发布日志`,
-                        text: `${msgTitle} \n\n ${log}`,
-                    },
-                });
+                const dingdingTokenArr = dingdingToken.split(' ');
+                for (let dingdingTokenKey of dingdingTokenArr) {
+                    if (dingdingTokenKey) {
+                        yield axios_1.default.post(`https://oapi.dingtalk.com/robot/send?access_token=${dingdingTokenKey}`, {
+                            msgtype: 'markdown',
+                            markdown: {
+                                title: `${version} 发布日志`,
+                                text: `${msgTitle} \n\n ${log}`,
+                            },
+                        });
+                    }
+                }
                 info(`[Actions] Success post dingding message of ${version}.`);
             }
         }
