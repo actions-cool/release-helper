@@ -112,7 +112,7 @@ async function main(): Promise<void> {
       }
 
       if (msgHead) {
-        log = `${replaceMsg4Me(msgHead)  }\n\n${  log}`;
+        log = `${replaceMsg4Me(msgHead)}\n\n${log}`;
       }
 
       if (msgPoster) {
