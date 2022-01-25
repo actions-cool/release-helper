@@ -112,7 +112,7 @@ async function main(): Promise<void> {
       }
 
       if (msgHead) {
-        log = replaceMsg4Me(msgHead) + '\n\n' + log;
+        log = `${replaceMsg4Me(msgHead)  }\n\n${  log}`;
       }
 
       if (msgPoster) {
@@ -125,7 +125,8 @@ async function main(): Promise<void> {
 
       const dingdingTokenArr = dingdingToken.split(' ');
 
-      for (let dingdingTokenKey of dingdingTokenArr) {
+      /* eslint-disable no-await-in-loop, no-restricted-syntax */
+      for (const dingdingTokenKey of dingdingTokenArr) {
         if (dingdingTokenKey) {
           await axios.post(
             `https://oapi.dingtalk.com/robot/send?access_token=${dingdingTokenKey}`,
