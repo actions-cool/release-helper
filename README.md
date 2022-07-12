@@ -46,7 +46,7 @@ jobs:
 | prerelease-notice | prerelease 是否发布钉钉通知，默认为 false | boolean | ✖ |
 | dingding-token | 发布钉钉通知使用 | string | ✖ |
 | dingding-msg | 发布钉钉内容，从 changelogs 中选一个 | string | ✖ |
-| dingding-settimeout | 发布钉钉内容延迟，单位分钟 | string | ✖ |
+| dingding-delay-minute | 发布钉钉内容延迟，单位分钟 | string | ✖ |
 | msg-title | 钉钉内容标题自定义 | string | ✖ |
 | msg-poster | 钉钉内容海报，传入图片 url | string | ✖ |
 | msg-head | 钉钉内容主题前置自定义 | string | ✖ |
@@ -62,7 +62,7 @@ jobs:
   - 例如：`msg-footer: '> footer: version is {{v}} url is [url]({{url}})'`
 - 你可以设置多个 dingding-token
   - `dingding-token: ${{ secrets.TOKEN1 }} ${{ secrets.TOKEN2 }}`
-- settimeout 切莫设置过大，我记得 CI 超过几个小时自动过期
+- delay 切莫设置过大，我记得 CI 超过几个小时自动过期
 
 ### Workflow
 

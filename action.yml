@@ -14,7 +14,7 @@ inputs:
     description: 'DingTalk token'
   dingding-msg:
     description: 'DingTalk message'
-  dingding-settimeout:
+  dingding-delay-minute:
     description: 'DingTalk notice setTimeout'
   msg-title:
     description: 'message title'

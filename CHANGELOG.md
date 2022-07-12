@@ -12,13 +12,13 @@
 
 `2022.07.12`
 
-- 🚀 feat: support `dingding-settimeout`.
+- 🚀 feat: support `dingding-delay-minute`.
 
 ## v2.1.0
 
 `2022.07.12`
 
-- 🚀 feat: support ` antd-conch-msg`.
+- 🚀 feat: support `antd-conch-msg`.
 
 ## v2.0.0
 

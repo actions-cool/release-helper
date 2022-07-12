@@ -123,7 +123,7 @@ async function main(): Promise<void> {
         log += `\n\n${replaceMsg4Me(msgFooter)}`;
       }
 
-      const time = core.getInput('dingding-settimeout') || 0;
+      const time = core.getInput('dingding-delay-minute') || 0;
       info(`[Actions] [time] ${time} start: ${Date.now()}`);
 
       setTimeout(async () => {
@@ -154,7 +154,7 @@ async function main(): Promise<void> {
         }
 
         info(`[Actions] Success post dingding message of ${version}.`);
-      }, +time * 1000);
+      }, +time * 1000 * 60);
     }
   } catch (e: any) {
     core.error(`[Actions] Error: ${e.message}`);

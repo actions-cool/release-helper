@@ -16388,7 +16388,7 @@ function main() {
                 if (msgFooter) {
                     log += `\n\n${replaceMsg4Me(msgFooter)}`;
                 }
-                const time = core.getInput('dingding-settimeout') || 0;
+                const time = core.getInput('dingding-delay-minute') || 0;
                 info(`[Actions] [time] ${time} start: ${Date.now()}`);
                 setTimeout(() => __awaiter(this, void 0, void 0, function* () {
                     info(`[Actions] [time] ${time} go: ${Date.now()}`);
@@ -16414,7 +16414,7 @@ function main() {
                         }
                     }
                     info(`[Actions] Success post dingding message of ${version}.`);
-                }), +time * 1000);
+                }), +time * 1000 * 60);
             }
         }
         catch (e) {
