@@ -16388,28 +16388,31 @@ function main() {
                 if (msgFooter) {
                     log += `\n\n${replaceMsg4Me(msgFooter)}`;
                 }
-                const antdMsg = core.getInput('antd-conch-msg');
-                if (antdMsg) {
-                    const result = yield (0, util_1.execOutput)(`npm view antd dist-tags --json`);
-                    const { conch } = JSON.parse(result);
-                    if (conch) {
-                        log += `\n\n ${antdMsg} ${conch}`;
+                const time = core.getInput('dingding-settimeout') || 0;
+                setTimeout(() => __awaiter(this, void 0, void 0, function* () {
+                    const antdMsg = core.getInput('antd-conch-msg');
+                    if (antdMsg) {
+                        const result = yield (0, util_1.execOutput)(`npm view antd dist-tags --json`);
+                        const { conch } = JSON.parse(result);
+                        if (conch) {
+                            log += `\n\n ${antdMsg}${conch}`;
+                        }
                     }
-                }
-                const dingdingTokenArr = dingdingToken.split(' ');
-                /* eslint-disable no-await-in-loop, no-restricted-syntax */
-                for (const dingdingTokenKey of dingdingTokenArr) {
-                    if (dingdingTokenKey) {
-                        yield axios_1.default.post(`https://oapi.dingtalk.com/robot/send?access_token=${dingdingTokenKey}`, {
-                            msgtype: 'markdown',
-                            markdown: {
-                                title: `${version} 发布日志`,
-                                text: `${msgTitle} \n\n ${log}`,
-                            },
-                        });
+                    const dingdingTokenArr = dingdingToken.split(' ');
+                    /* eslint-disable no-await-in-loop, no-restricted-syntax */
+                    for (const dingdingTokenKey of dingdingTokenArr) {
+                        if (dingdingTokenKey) {
+                            yield axios_1.default.post(`https://oapi.dingtalk.com/robot/send?access_token=${dingdingTokenKey}`, {
+                                msgtype: 'markdown',
+                                markdown: {
+                                    title: `${version} 发布日志`,
+                                    text: `${msgTitle} \n\n ${log}`,
+                                },
+                            });
+                        }
                     }
-                }
-                info(`[Actions] Success post dingding message of ${version}.`);
+                    info(`[Actions] Success post dingding message of ${version}.`);
+                }), +time * 1000);
             }
         }
         catch (e) {

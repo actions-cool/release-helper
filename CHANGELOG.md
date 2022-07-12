@@ -8,6 +8,12 @@
 
 # Changelog
 
+## v2.2.0
+
+`2022.07.12`
+
+- 🚀 feat: support `dingding-settimeout`.
+
 ## v2.1.0
 
 `2022.07.12`
