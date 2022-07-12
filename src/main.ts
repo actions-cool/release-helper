@@ -4,7 +4,7 @@ import { Octokit } from '@octokit/rest';
 import { dealStringToArr } from 'actions-util';
 import axios from 'axios';
 
-import { execOutput,filterChangelogs, getChangelog, replaceMsg } from './util';
+import { execOutput, filterChangelogs, getChangelog, replaceMsg } from './util';
 
 // **********************************************************
 async function main(): Promise<void> {
