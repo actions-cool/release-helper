@@ -1,3 +1,5 @@
+import { exec } from '@actions/exec';
+
 export const getChangelog = (content: string, version: string, prettier: boolean): string[] => {
   const lines = content.split('\n');
   const changeLog = [];
@@ -42,4 +44,20 @@ export const replaceMsg = (msg: string, version: string, owner: string, repo: st
   return msg
     .replace('{{v}}', version)
     .replace('{{url}}', `https://github.com/${owner}/${repo}/releases/tag/${version}`);
+};
+
+export const execOutput = async (command: string) => {
+  let myOutput: string = '';
+  const options = {
+    listeners: {
+      stdout: (stdoutData: Buffer) => {
+        myOutput += stdoutData.toString();
+      },
+    },
+  };
+  await exec(command, [], options);
+  if (myOutput && !myOutput.includes('Success')) {
+    throw new Error(myOutput);
+  }
+  return myOutput;
 };

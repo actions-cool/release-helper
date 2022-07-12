@@ -38,6 +38,8 @@ inputs:
     description: 'Prerelease filter'
   prerelease-notice:
     description: 'Prerelease notice'
+  antd-conch-msg:
+    description: 'Only for antd'
 runs:
   using: node12
   main: 'dist/index.js'

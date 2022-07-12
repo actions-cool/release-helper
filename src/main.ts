@@ -4,7 +4,7 @@ import { Octokit } from '@octokit/rest';
 import { dealStringToArr } from 'actions-util';
 import axios from 'axios';
 
-import { filterChangelogs, getChangelog, replaceMsg } from './util';
+import { execOutput,filterChangelogs, getChangelog, replaceMsg } from './util';
 
 // **********************************************************
 async function main(): Promise<void> {
@@ -121,6 +121,15 @@ async function main(): Promise<void> {
 
       if (msgFooter) {
         log += `\n\n${replaceMsg4Me(msgFooter)}`;
+      }
+
+      const antdMsg = core.getInput('antd-conch-msg');
+      if (antdMsg) {
+        const result = await execOutput(`npm view antd dist-tags --json`);
+        const { conch } = JSON.parse(result);
+        if (conch) {
+          log += `\n\n ${antdMsg} ${conch}`;
+        }
       }
 
       const dingdingTokenArr = dingdingToken.split(' ');
