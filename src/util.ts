@@ -56,8 +56,5 @@ export const execOutput = async (command: string) => {
     },
   };
   await exec(command, [], options);
-  if (myOutput && !myOutput.includes('Success')) {
-    throw new Error(myOutput);
-  }
   return myOutput;
 };
