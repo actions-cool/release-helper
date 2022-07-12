@@ -124,8 +124,10 @@ async function main(): Promise<void> {
       }
 
       const time = core.getInput('dingding-settimeout') || 0;
+      info(`[Actions] [time] ${time} start: ${Date.now()}`);
 
       setTimeout(async () => {
+        info(`[Actions] [time] ${time} go: ${Date.now()}`);
         const antdMsg = core.getInput('antd-conch-msg');
         if (antdMsg) {
           const result = await execOutput(`npm view antd dist-tags --json`);

@@ -16389,7 +16389,9 @@ function main() {
                     log += `\n\n${replaceMsg4Me(msgFooter)}`;
                 }
                 const time = core.getInput('dingding-settimeout') || 0;
+                info(`[Actions] [time] ${time} start: ${Date.now()}`);
                 setTimeout(() => __awaiter(this, void 0, void 0, function* () {
+                    info(`[Actions] [time] ${time} go: ${Date.now()}`);
                     const antdMsg = core.getInput('antd-conch-msg');
                     if (antdMsg) {
                         const result = yield (0, util_1.execOutput)(`npm view antd dist-tags --json`);
