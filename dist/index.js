@@ -16343,16 +16343,22 @@ function main() {
                     }
                 }
             }
-            yield octokit.repos.createRelease({
-                owner,
-                repo,
-                tag_name: version,
-                name: version,
-                body: show,
-                draft: !!draft,
-                prerelease: pre,
-            });
-            info(`[Actions] Success release ${version}.`);
+            const release = core.getInput('release');
+            if (release !== 'false') {
+                yield octokit.repos.createRelease({
+                    owner,
+                    repo,
+                    tag_name: version,
+                    name: version,
+                    body: show,
+                    draft: !!draft,
+                    prerelease: pre,
+                });
+                info(`[Actions] Success release ${version}.`);
+            }
+            else {
+                info(`[Actions] Skip release ${version}.`);
+            }
             const ddNotice = prereleaseNotice === 'true' || !pre;
             if (dingdingToken && dingdingMsg && ddNotice) {
                 if (dingdingIgnore) {

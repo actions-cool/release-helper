@@ -42,6 +42,8 @@ inputs:
     description: 'Prerelease notice'
   antd-conch-msg:
     description: 'Only for antd'
+  release:
+    description: 'Whether release'
 runs:
   using: node12
   main: 'dist/index.js'

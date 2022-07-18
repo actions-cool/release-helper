@@ -40,6 +40,7 @@ jobs:
 | triger | Triggering conditions | string | ✔ |
 | changelogs | The file path | string | ✔ |
 | branch | The file branch | string | ✔ |
+| release | Whether release. Default `true` | boolean | ✖ |
 | draft | Whether create a draft (unpublished) release. Default `false` | boolean | ✖ |
 | prerelease | Whether to identify the release as a prerelease. Default `false` | boolean | ✖ |
 | prerelease-filter | Version filter prerelease| string | ✖ |
