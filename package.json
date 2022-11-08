@@ -1,7 +1,5 @@
 {
-  "name": "release-helper",
   "private": true,
-  "description": "A GitHub Action that help you publish release.",
   "keywords": [
     "actions",
     "release",

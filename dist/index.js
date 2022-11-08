@@ -16300,8 +16300,8 @@ function main() {
             const dingdingMsg = core.getInput('dingding-msg');
             const dingdingIgnore = core.getInput('dingding-ignore');
             const triger = core.getInput('triger', { required: true });
-            const branch = core.getInput('branch', { required: true });
-            const changelogs = core.getInput('changelogs', { required: true });
+            const branch = core.getInput('branch');
+            const changelogs = core.getInput('changelogs');
             const draft = core.getInput('draft') || false;
             const prerelease = core.getInput('prerelease') || false;
             const prereleaseFilter = core.getInput('prerelease-filter');
@@ -16319,18 +16319,21 @@ function main() {
             const real = [];
             const arr = [];
             const changelogArr = (0, actions_util_1.dealStringToArr)(changelogs);
-            const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
-            for (let i = 0; i < changelogArr.length; i += 1) {
-                // eslint-disable-next-line no-await-in-loop
-                const { data } = yield axios_1.default.get(`${url}/${changelogArr[i]}`);
-                const [changelog, changelogPre] = (0, util_1.getChangelog)(data, version, prettier !== '');
-                arr.push(changelog);
-                real.push(changelogPre);
-                if (changelog && i !== changelogArr.length - 1) {
-                    arr.push('---');
+            let show = '';
+            if (branch) {
+                const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
+                for (let i = 0; i < changelogArr.length; i += 1) {
+                    // eslint-disable-next-line no-await-in-loop
+                    const { data } = yield axios_1.default.get(`${url}/${changelogArr[i]}`);
+                    const [changelog, changelogPre] = (0, util_1.getChangelog)(data, version, prettier !== '');
+                    arr.push(changelog);
+                    real.push(changelogPre);
+                    if (changelog && i !== changelogArr.length - 1) {
+                        arr.push('---');
+                    }
                 }
+                show = arr.join('\n');
             }
-            const show = arr.join('\n');
             let pre = Boolean(prerelease);
             if (prereleaseFilter) {
                 const filters = (0, actions_util_1.dealStringToArr)(prereleaseFilter);
@@ -16360,7 +16363,7 @@ function main() {
                 info(`[Actions] Skip release ${version}.`);
             }
             const ddNotice = prereleaseNotice === 'true' || !pre;
-            if (dingdingToken && dingdingMsg && ddNotice) {
+            if (dingdingToken && ddNotice) {
                 if (dingdingIgnore) {
                     const ignores = (0, actions_util_1.dealStringToArr)(dingdingIgnore);
                     // eslint-disable-next-line no-restricted-syntax
@@ -16371,7 +16374,10 @@ function main() {
                         }
                     }
                 }
-                let log = (0, util_1.filterChangelogs)(changelogArr, dingdingMsg, real);
+                let log = '';
+                if (dingdingMsg) {
+                    log = (0, util_1.filterChangelogs)(changelogArr, dingdingMsg, real);
+                }
                 let msgTitle = core.getInput('msg-title');
                 const msgHead = core.getInput('msg-head');
                 const msgPoster = core.getInput('msg-poster');

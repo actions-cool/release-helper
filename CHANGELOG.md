@@ -8,6 +8,10 @@
 
 # Changelog
 
+## v2.3.1
+
+- 💄 refactor: allow changelog to be empty.
+
 ## v2.3.0
 
 `2022.07.18`

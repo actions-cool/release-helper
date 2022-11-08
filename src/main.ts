@@ -18,8 +18,8 @@ async function main(): Promise<void> {
     const dingdingIgnore = core.getInput('dingding-ignore');
 
     const triger = core.getInput('triger', { required: true });
-    const branch = core.getInput('branch', { required: true });
-    const changelogs = core.getInput('changelogs', { required: true });
+    const branch = core.getInput('branch');
+    const changelogs = core.getInput('changelogs');
 
     const draft = core.getInput('draft') || false;
     const prerelease = core.getInput('prerelease') || false;
@@ -43,19 +43,22 @@ async function main(): Promise<void> {
     const real = [];
     const arr = [];
     const changelogArr = dealStringToArr(changelogs);
-    const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
 
-    for (let i = 0; i < changelogArr.length; i += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      const { data } = await axios.get(`${url}/${changelogArr[i]}`);
-      const [changelog, changelogPre] = getChangelog(data, version, prettier !== '');
-      arr.push(changelog);
-      real.push(changelogPre);
-      if (changelog && i !== changelogArr.length - 1) {
-        arr.push('---');
+    let show = '';
+    if (branch) {
+      const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
+      for (let i = 0; i < changelogArr.length; i += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        const { data } = await axios.get(`${url}/${changelogArr[i]}`);
+        const [changelog, changelogPre] = getChangelog(data, version, prettier !== '');
+        arr.push(changelog);
+        real.push(changelogPre);
+        if (changelog && i !== changelogArr.length - 1) {
+          arr.push('---');
+        }
       }
+      show = arr.join('\n');
     }
-    const show = arr.join('\n');
 
     let pre = Boolean(prerelease);
     if (prereleaseFilter) {
@@ -88,7 +91,7 @@ async function main(): Promise<void> {
 
     const ddNotice = prereleaseNotice === 'true' || !pre;
 
-    if (dingdingToken && dingdingMsg && ddNotice) {
+    if (dingdingToken && ddNotice) {
       if (dingdingIgnore) {
         const ignores = dealStringToArr(dingdingIgnore);
         // eslint-disable-next-line no-restricted-syntax
@@ -100,7 +103,10 @@ async function main(): Promise<void> {
         }
       }
 
-      let log = filterChangelogs(changelogArr, dingdingMsg, real);
+      let log = '';
+      if (dingdingMsg) {
+        log = filterChangelogs(changelogArr, dingdingMsg, real);
+      }
       let msgTitle = core.getInput('msg-title');
       const msgHead = core.getInput('msg-head');
       const msgPoster = core.getInput('msg-poster');
