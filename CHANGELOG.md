@@ -8,6 +8,12 @@
 
 # Changelog
 
+## v2.3.2
+
+`2022.11.09`
+
+- 🐞 fix: prereleaseNotice associated with pre.
+
 ## v2.3.1
 
 `2022.11.08`

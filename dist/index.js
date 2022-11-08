@@ -16362,7 +16362,10 @@ function main() {
             else {
                 info(`[Actions] Skip release ${version}.`);
             }
-            const ddNotice = prereleaseNotice === 'true' || !pre;
+            let ddNotice = !pre;
+            if (prereleaseNotice && pre) {
+                ddNotice = true;
+            }
             if (dingdingToken && ddNotice) {
                 if (dingdingIgnore) {
                     const ignores = (0, actions_util_1.dealStringToArr)(dingdingIgnore);

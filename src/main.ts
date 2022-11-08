@@ -89,7 +89,10 @@ async function main(): Promise<void> {
       info(`[Actions] Skip release ${version}.`);
     }
 
-    const ddNotice = prereleaseNotice === 'true' || !pre;
+    let ddNotice = !pre;
+    if (prereleaseNotice && pre) {
+      ddNotice = true;
+    }
 
     if (dingdingToken && ddNotice) {
       if (dingdingIgnore) {
