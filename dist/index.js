@@ -16319,9 +16319,12 @@ function main() {
                 error("[Actions] The input 'triger' not match acionts 'on'");
                 return;
             }
+            info(`tags: ${JSON.stringify(tags)}`);
             if (tags && tags.length) {
                 for (let i = 0; i < tags.length; i++) {
-                    if ((version + '').startsWith(tags[i].replace('*', ''))) {
+                    let t = tags[i];
+                    t = t.replace('*', '');
+                    if ((version + '').startsWith(t)) {
                         branch = branches[i] || '';
                         return;
                     }

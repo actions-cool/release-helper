@@ -43,15 +43,18 @@ async function main(): Promise<void> {
       return;
     }
 
+    info(`tags: ${JSON.stringify(tags)}`);
     if (tags && tags.length) {
       for (let i = 0; i < tags.length; i++) {
-        if ((version + '').startsWith(tags[i].replace('*', ''))) {
+        let t = tags[i];
+        t = t.replace('*', '');
+        if ((version + '').startsWith(t)) {
           branch = branches[i] || '';
           return;
         }
       }
     }
-    info(`branch: ${branch}`)
+    info(`branch: ${branch}`);
 
     const real = [];
     const arr = [];
@@ -60,7 +63,7 @@ async function main(): Promise<void> {
     let show = '';
     if (branch) {
       const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
-      info(`url: ${url}`)
+      info(`url: ${url}`);
       for (let i = 0; i < changelogArr.length; i += 1) {
         // eslint-disable-next-line no-await-in-loop
         const { data } = await axios.get(`${url}/${changelogArr[i]}`);
