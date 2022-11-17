@@ -45,7 +45,7 @@ async function main(): Promise<void> {
 
     if (tags && tags.length) {
       for (let i = 0; i < tags.length; i++) {
-        if ((version + '').startsWith(tags[i])) {
+        if ((version + '').startsWith(tags[i].replace('*', ''))) {
           branch = branches[i] || '';
           return;
         }
