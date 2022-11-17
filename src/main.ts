@@ -22,6 +22,8 @@ async function main(): Promise<void> {
     const branches = dealStringToArr(branch);
     const tag = core.getInput('tag');
     const tags = dealStringToArr(tag);
+    const conchTag = core.getInput('conch-tag');
+    const conchTags = dealStringToArr(conchTag);
     const changelogs = core.getInput('changelogs');
 
     const draft = core.getInput('draft') || false;
@@ -42,7 +44,7 @@ async function main(): Promise<void> {
       error("[Actions] The input 'triger' not match acionts 'on'");
       return;
     }
-
+    let conch = 'conch';
     info(`tags: ${JSON.stringify(tags)}`);
     if (tags && tags.length) {
       for (let i = 0; i < tags.length; i++) {
@@ -50,6 +52,7 @@ async function main(): Promise<void> {
         t = t.replace('*', '');
         if ((version + '').startsWith(t)) {
           branch = branches[i] || '';
+          conch = conchTags[i] || 'conch';
           break;
         }
       }
@@ -162,9 +165,10 @@ async function main(): Promise<void> {
         const antdMsg = core.getInput('antd-conch-msg');
         if (antdMsg) {
           const result = await execOutput(`npm view antd dist-tags --json`);
-          const { conch } = JSON.parse(result);
-          if (conch) {
-            log += `\n\n ${antdMsg}${conch}`;
+          const distTags = JSON.parse(result);
+          const conchTag = distTags[conch];
+          if (conchTag) {
+            log += `\n\n ${antdMsg}${conchTag}`;
           }
         }
         const dingdingTokenArr = dingdingToken.split(' ');

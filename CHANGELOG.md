@@ -8,6 +8,12 @@
 
 # Changelog
 
+## v2.4.1
+
+`2022.11.17`
+
+- 🚀 feat: support `conch-tag`.
+
 ## v2.4.0
 
 `2022.11.17`

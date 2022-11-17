@@ -32,6 +32,8 @@ inputs:
     description: 'Branch'
   tag:
     description: 'Tag for branch'
+  conch-tag:
+    description: 'Tag for conch'
   changelogs:
     description: 'Changelogs'
   draft:
