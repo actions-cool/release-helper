@@ -16321,18 +16321,20 @@ function main() {
             }
             if (tags && tags.length) {
                 for (let i = 0; i < tags.length; i++) {
-                    if (version.startsWith(tags[i])) {
+                    if ((version + '').startsWith(tags[i])) {
                         branch = branches[i] || '';
                         return;
                     }
                 }
             }
+            info(`branch: ${branch}`);
             const real = [];
             const arr = [];
             const changelogArr = (0, actions_util_1.dealStringToArr)(changelogs);
             let show = '';
             if (branch) {
                 const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
+                info(`url: ${url}`);
                 for (let i = 0; i < changelogArr.length; i += 1) {
                     // eslint-disable-next-line no-await-in-loop
                     const { data } = yield axios_1.default.get(`${url}/${changelogArr[i]}`);
