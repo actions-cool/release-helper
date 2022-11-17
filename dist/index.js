@@ -16444,7 +16444,7 @@ function main() {
                             });
                         }
                     }
-                    info(`[Actions] Success post dingding message of ${version}.`);
+                    info(`[Actions] Success post dingding message of ${version}`);
                 }), +time * 1000 * 60);
             }
         }

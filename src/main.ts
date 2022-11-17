@@ -184,7 +184,7 @@ async function main(): Promise<void> {
           }
         }
 
-        info(`[Actions] Success post dingding message of ${version}.`);
+        info(`[Actions] Success post dingding message of ${version}`);
       }, +time * 1000 * 60);
     }
   } catch (e: any) {
