@@ -16304,6 +16304,8 @@ function main() {
             const branches = (0, actions_util_1.dealStringToArr)(branch);
             const tag = core.getInput('tag');
             const tags = (0, actions_util_1.dealStringToArr)(tag);
+            const conchTag = core.getInput('conch-tag');
+            const conchTags = (0, actions_util_1.dealStringToArr)(conchTag);
             const changelogs = core.getInput('changelogs');
             const draft = core.getInput('draft') || false;
             const prerelease = core.getInput('prerelease') || false;
@@ -16319,6 +16321,7 @@ function main() {
                 error("[Actions] The input 'triger' not match acionts 'on'");
                 return;
             }
+            let conch = 'conch';
             info(`tags: ${JSON.stringify(tags)}`);
             if (tags && tags.length) {
                 for (let i = 0; i < tags.length; i++) {
@@ -16326,6 +16329,7 @@ function main() {
                     t = t.replace('*', '');
                     if ((version + '').startsWith(t)) {
                         branch = branches[i] || '';
+                        conch = conchTags[i] || 'conch';
                         break;
                     }
                 }
@@ -16426,9 +16430,10 @@ function main() {
                     const antdMsg = core.getInput('antd-conch-msg');
                     if (antdMsg) {
                         const result = yield (0, util_1.execOutput)(`npm view antd dist-tags --json`);
-                        const { conch } = JSON.parse(result);
-                        if (conch) {
-                            log += `\n\n ${antdMsg}${conch}`;
+                        const distTags = JSON.parse(result);
+                        const conchTag = distTags[conch];
+                        if (conchTag) {
+                            log += `\n\n ${antdMsg}${conchTag}`;
                         }
                     }
                     const dingdingTokenArr = dingdingToken.split(' ');
