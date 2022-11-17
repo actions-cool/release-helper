@@ -16326,7 +16326,7 @@ function main() {
                     t = t.replace('*', '');
                     if ((version + '').startsWith(t)) {
                         branch = branches[i] || '';
-                        return;
+                        break;
                     }
                 }
             }

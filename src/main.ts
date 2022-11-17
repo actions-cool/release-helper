@@ -50,7 +50,7 @@ async function main(): Promise<void> {
         t = t.replace('*', '');
         if ((version + '').startsWith(t)) {
           branch = branches[i] || '';
-          return;
+          break;
         }
       }
     }
