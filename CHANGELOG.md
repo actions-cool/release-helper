@@ -8,6 +8,12 @@
 
 # Changelog
 
+## v2.4.0
+
+`2022.11.17`
+
+- 🚀 feat: support `tag` for branch.
+
 ## v2.3.2
 
 `2022.11.09`

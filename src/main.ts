@@ -18,7 +18,10 @@ async function main(): Promise<void> {
     const dingdingIgnore = core.getInput('dingding-ignore');
 
     const triger = core.getInput('triger', { required: true });
-    const branch = core.getInput('branch');
+    let branch = core.getInput('branch');
+    const branches = dealStringToArr(branch);
+    const tag = core.getInput('tag');
+    const tags = dealStringToArr(tag);
     const changelogs = core.getInput('changelogs');
 
     const draft = core.getInput('draft') || false;
@@ -38,6 +41,15 @@ async function main(): Promise<void> {
     if (refType !== triger) {
       error("[Actions] The input 'triger' not match acionts 'on'");
       return;
+    }
+
+    if (tags && tags.length) {
+      for (let i = 0; i < tags.length; i++) {
+        if (version.startsWith(tags[i])) {
+          branch = branches[i] || '';
+          return;
+        }
+      }
     }
 
     const real = [];

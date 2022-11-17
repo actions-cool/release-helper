@@ -30,6 +30,8 @@ inputs:
     description: 'DingTalk ignore when version contain'
   branch:
     description: 'Branch'
+  tag:
+    description: 'Tag for branch'
   changelogs:
     description: 'Changelogs'
   draft:

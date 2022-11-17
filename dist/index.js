@@ -16300,7 +16300,10 @@ function main() {
             const dingdingMsg = core.getInput('dingding-msg');
             const dingdingIgnore = core.getInput('dingding-ignore');
             const triger = core.getInput('triger', { required: true });
-            const branch = core.getInput('branch');
+            let branch = core.getInput('branch');
+            const branches = (0, actions_util_1.dealStringToArr)(branch);
+            const tag = core.getInput('tag');
+            const tags = (0, actions_util_1.dealStringToArr)(tag);
             const changelogs = core.getInput('changelogs');
             const draft = core.getInput('draft') || false;
             const prerelease = core.getInput('prerelease') || false;
@@ -16315,6 +16318,14 @@ function main() {
             if (refType !== triger) {
                 error("[Actions] The input 'triger' not match acionts 'on'");
                 return;
+            }
+            if (tags && tags.length) {
+                for (let i = 0; i < tags.length; i++) {
+                    if (version.startsWith(tags[i])) {
+                        branch = branches[i] || '';
+                        return;
+                    }
+                }
             }
             const real = [];
             const arr = [];
