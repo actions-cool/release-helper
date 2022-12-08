@@ -17,7 +17,8 @@ async function main(): Promise<void> {
     const dingdingMsg = core.getInput('dingding-msg');
     const dingdingIgnore = core.getInput('dingding-ignore');
 
-    const triger = core.getInput('triger', { required: true });
+    const triger = core.getInput('triger');
+    const trigger = core.getInput('trigger') || triger;
     let branch = core.getInput('branch');
     const branches = dealStringToArr(branch);
     const tag = core.getInput('tag');
@@ -25,6 +26,9 @@ async function main(): Promise<void> {
     const conchTag = core.getInput('conch-tag');
     const conchTags = dealStringToArr(conchTag);
     const changelogs = core.getInput('changelogs');
+
+    const latest = core.getInput('latest');
+    let makeLatest = 'true';
 
     const draft = core.getInput('draft') || false;
     const prerelease = core.getInput('prerelease') || false;
@@ -40,7 +44,7 @@ async function main(): Promise<void> {
     const { ref_type: refType, ref: version } = github.context.payload;
     info(`ref_type: ${refType}, ref: ${version}`);
 
-    if (refType !== triger) {
+    if (refType !== trigger) {
       error("[Actions] The input 'triger' not match acionts 'on'");
       return;
     }
@@ -58,6 +62,15 @@ async function main(): Promise<void> {
       }
     }
     info(`branch: ${branch}`);
+
+    if (latest) {
+      const l = latest.replace('*', '');
+      if ((version + '').startsWith(l)) {
+        makeLatest = 'true';
+      } else {
+        makeLatest = 'false';
+      }
+    }
 
     const real = [];
     const arr = [];
@@ -103,6 +116,7 @@ async function main(): Promise<void> {
         body: show,
         draft: !!draft,
         prerelease: pre,
+        make_latest: makeLatest,
       });
       info(`[Actions] Success release ${version}.`);
     } else {
@@ -166,9 +180,9 @@ async function main(): Promise<void> {
         if (antdMsg) {
           const result = await execOutput(`npm view antd dist-tags --json`);
           const distTags = JSON.parse(result);
-          const conchTag = distTags[conch];
-          if (conchTag) {
-            log += `\n\n ${antdMsg}${conchTag}`;
+          const conchTagTemp = distTags[conch];
+          if (conchTagTemp) {
+            log += `\n\n ${antdMsg}${conchTagTemp}`;
           }
         }
         const dingdingTokenArr = dingdingToken.split(' ');

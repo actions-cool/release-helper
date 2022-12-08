@@ -7,6 +7,8 @@ branding:
 inputs:
   triger:
     description: 'How to start'
+  trigger:
+    description: 'How to start'
   token:
     description: 'Github token'
     default: ${{ github.token }}
@@ -48,6 +50,8 @@ inputs:
     description: 'Only for antd'
   release:
     description: 'Whether release'
+  latest:
+    description: 'latest for tag'
 runs:
   using: node16
   main: 'dist/index.js'

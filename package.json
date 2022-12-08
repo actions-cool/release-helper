@@ -30,7 +30,7 @@
     "actions-util": "^1.0.0"
   },
   "devDependencies": {
-    "@octokit/rest": "^18.0.12",
+    "@octokit/rest": "^19.0.5",
     "@typescript-eslint/parser": "^4.15.2",
     "@umijs/fabric": "^2.6.2",
     "@vercel/ncc": "^0.27.0",

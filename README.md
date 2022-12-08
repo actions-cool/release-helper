@@ -27,7 +27,7 @@ jobs:
         uses: actions-cool/release-helper@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          triger: 'tag'
+          trigger: 'tag'
           changelogs: 'CHANGELOG.en-US.md, CHANGELOG.zh-CN.md'
           branch: 'master'
 ```
@@ -37,7 +37,7 @@ jobs:
 | Name | Desc | Type | Required |
 | -- | -- | -- | -- |
 | token | GitHub Token | string | ✔ |
-| triger | Triggering conditions | string | ✔ |
+| trigger | Triggering conditions | string | ✔ |
 | changelogs | The file path | string | ✔ |
 | branch | The file branch | string | ✔ |
 | tag | Tag for branch. Check startsWith | string | ✖ |

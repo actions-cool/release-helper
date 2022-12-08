@@ -8,6 +8,13 @@
 
 # Changelog
 
+## v2.5.0
+
+`2022.12.08`
+
+- 🚀 feat: support `latest`.
+- 🐞 fix: `triger` to `trigger`.
+
 ## v2.4.1
 
 `2022.11.17`
