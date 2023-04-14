@@ -116,7 +116,7 @@ async function main(): Promise<void> {
         body: show,
         draft: !!draft,
         prerelease: pre,
-        make_latest: makeLatest,
+        make_latest: makeLatest as any,
       });
       info(`[Actions] Success release ${version}.`);
     } else {
