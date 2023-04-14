@@ -33,7 +33,7 @@
     "@octokit/rest": "^19.0.5",
     "@typescript-eslint/parser": "^4.15.2",
     "@umijs/fabric": "^2.6.2",
-    "@vercel/ncc": "^0.27.0",
+    "@vercel/ncc": "0.34.0",
     "axios": "^0.21.1",
     "eslint": "^7.14.0",
     "eslint-plugin-github": "^4.1.1",
