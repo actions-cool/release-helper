@@ -8,6 +8,12 @@
 
 # Changelog
 
+## v2.5.1
+
+`2023.04.14`
+
+- 💄 style: prettier code show
+
 ## v2.5.0
 
 `2022.12.08`
