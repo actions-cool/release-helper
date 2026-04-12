@@ -21,7 +21,8 @@
     "lint": "eslint src/**/*.ts",
     "lint-fix": "eslint src/**/*.ts --fix",
     "package": "ncc build src/main.ts -o dist",
-    "all": "npm run format-check && npm run lint && npm run package"
+    "all": "npm run format-check && npm run lint && npm run package",
+    "tag": "node ./scripts/tag.js"
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
@@ -39,6 +40,8 @@
     "eslint-plugin-github": "^4.1.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "prettier": "^2.2.1",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.2",
+    "chalk": "^4.1.2",
+    "simple-git": "^2.46.0"
   }
 }
