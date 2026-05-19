@@ -8,6 +8,10 @@
 
 # Changelog
 
+## v2.6.1
+
+- chore: update
+
 ## v2.6.0
 
 `2026.04.12`
