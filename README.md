@@ -10,6 +10,10 @@
 
 ## 🚀 Usage
 
+**Special reminder:** Releases and tags are no longer being updated. Please use commits as a guide and check the changes in commits when updating.
+
+**Like:** `uses: actions-cool/release-helper@dcd7c203f7021878abd237fb4c1e6dfd5e39f8d9`
+
 ### Example
 
 ```yml
@@ -24,7 +28,7 @@ jobs:
     steps:
       - name: make release
         if: github.event.ref_type == 'tag'
-        uses: actions-cool/release-helper@v2
+        uses: actions-cool/release-helper@dcd7c203f7021878abd237fb4c1e6dfd5e39f8d9
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           trigger: 'tag'
